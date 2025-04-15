@@ -1,0 +1,51 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_innyx
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: laravel
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3307:3306"
+
+  backend:
+    build:
+      context: ./innyx_back
+    container_name: laravel_innyx
+    restart: unless-stopped
+    volumes:
+      - ./innyx_back:/var/www
+    ports:
+      - "8000:8000"
+    working_dir: /var/www
+    depends_on:
+      - mysql
+    command: sh -c "
+      cp .env.example .env && \
+      composer install && \
+      php artisan key:generate && \
+      php artisan migrate:fresh --seed --force && \
+      php artisan serve --host=0.0.0.0 --port=8000 "
+
+  frontend:
+    build:
+      context: ./innyx_front
+    container_name: vue_innyx
+    volumes:
+      - ./innyx_front:/app
+    ports:
+      - "5173:5173"
+    working_dir: /app
+    command: sh -c "npm install && npm run dev -- --host"
+    depends_on:
+      - backend
+
+volumes:
+  mysql_data:
