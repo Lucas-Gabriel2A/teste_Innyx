@@ -70,6 +70,10 @@ DB_PASSWORD=laravel
 ```bash
 php artisan key:generate
 ```
+5. Gere a chave JWT:
+```bash
+php artisan jwt:secret
+```
 
 6. Execute as migrations e seeders:
 
