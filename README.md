@@ -9,6 +9,8 @@ Este projeto é composto por um backend em Laravel e um frontend em Vue.js, tota
 ### Pré-requisitos
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
+- [Composer](https://getcomposer.org/download/)
+- [NodeJS](https://nodejs.org/en)
 
 ### Passos:
 
