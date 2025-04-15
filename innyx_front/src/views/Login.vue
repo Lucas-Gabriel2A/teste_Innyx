@@ -93,8 +93,8 @@ const handleRegister = () => {
 
       <div class="register-link">
         <a @click="handleRegister">
-          usuário: lucasdev2 <br />
-          senha : teste
+          usuário: usuario_teste <br />
+          senha : 123
         </a>
       </div>
     </div>
